@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 using Service.BitGo.SignTransaction.Domain.Models;
 
 namespace Service.Bitgo.PendingApprovals.Grpc.Models
@@ -12,6 +13,6 @@ namespace Service.Bitgo.PendingApprovals.Grpc.Models
         [DataMember(Order = 4)] public string Otp { get; set; }
         [DataMember(Order = 5)] public string ResolvedBy { get; set; }
         [DataMember(Order = 6)] public string UpdatedBy { get; set; }
-        [DataMember(Order = 7)] public string UpdatedTime { get; set; }
+        [DataMember(Order = 7)] public DateTime UpdatedTime { get; set; }
     }
 }
