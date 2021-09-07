@@ -78,7 +78,7 @@ namespace Service.Bitgo.PendingApprovals.Services
                 };
             }
 
-            if (pendingApproval.PendingApproval.ApprovedBy.Contains(request.ResolvedBy))
+            if (pendingApproval.PendingApproval.Approvers.Contains(request.ResolvedBy))
             {
                 _logger.LogInformation("BitGo user {user} already approved pending approval {id}, ignoring",
                     request.ResolvedBy, request.PendingApprovalId);
