@@ -110,6 +110,7 @@ namespace Service.Bitgo.PendingApprovals.Services
                 };
             }
 
+            pendingApproval.PendingApproval.ApprovedBy ??= new List<string>();
             pendingApproval.PendingApproval.ApprovedBy.Add(request.ResolvedBy);
             pendingApproval.PendingApproval.State = resolveResult.PendingApprovalInfo.State;
             switch (pendingApproval.PendingApproval.State)
