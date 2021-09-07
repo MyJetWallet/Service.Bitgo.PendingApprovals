@@ -10,6 +10,7 @@ using Service.Bitgo.PendingApprovals.Grpc;
 using Service.Bitgo.PendingApprovals.Grpc.Models;
 using Service.Bitgo.PendingApprovals.NoSql;
 using Service.Bitgo.PendingApprovals.Utils;
+using Service.BitGo.SignTransaction.Domain.Models;
 using Service.BitGo.SignTransaction.Grpc;
 using Service.BitGo.SignTransaction.Grpc.Models;
 
@@ -103,6 +104,11 @@ namespace Service.Bitgo.PendingApprovals.Services
             {
                 _logger.LogInformation("Unable to resolve pending approval {id} due to {error}",
                     request.PendingApprovalId, resolveResult.Error.Message);
+                if (resolveResult.Error.Message.Equals("request was already rejected"))
+                {
+                    pendingApproval.PendingApproval.State = PendingApprovalUpdatedState.Rejected.ToString().ToLower();
+                    await _myNoSqlServerDataWriter.InsertOrReplaceAsync(pendingApproval);
+                }
                 return new ResolvePendingApprovalResponse
                 {
                     Success = false,
