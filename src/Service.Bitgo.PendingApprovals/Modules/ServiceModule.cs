@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MyJetWallet.BitGo.Settings.Ioc;
 using MyJetWallet.Sdk.Service;
+using MyJetWallet.Sdk.ServiceBus;
 using MyNoSqlServer.Abstractions;
 using MyNoSqlServer.DataReader;
 using MyNoSqlServer.DataWriter;
@@ -12,6 +13,7 @@ using Service.Bitgo.PendingApprovals.ServiceBus;
 using Service.BitGo.SignTransaction.Client;
 using Service.BitGo.SignTransaction.Domain.Models.NoSql;
 using Service.Bitgo.Webhooks.Client;
+
 // ReSharper disable TemplateIsNotCompileTimeConstantProblem
 
 namespace Service.Bitgo.PendingApprovals.Modules
@@ -24,8 +26,10 @@ namespace Service.Bitgo.PendingApprovals.Modules
         {
             ServiceBusLogger = Program.LogFactory.CreateLogger(nameof(MyServiceBusTcpClient));
 
-            var serviceBusClient = new MyServiceBusTcpClient(Program.ReloadedSettings(e => e.SpotServiceBusHostPort),
-                ApplicationEnvironment.HostName);
+            var serviceBusClient = builder.RegisterMyServiceBusTcpClient(
+                Program.ReloadedSettings(e => e.SpotServiceBusHostPort),
+                Program.LogFactory);
+            
             serviceBusClient.Log.AddLogException(ex =>
                 ServiceBusLogger.LogInformation(ex, "Exception in MyServiceBusTcpClient"));
             serviceBusClient.Log.AddLogInfo(info => ServiceBusLogger.LogDebug($"MyServiceBusTcpClient[info]: {info}"));

@@ -19,7 +19,7 @@
     <PackageReference Include="MyJetWallet.Sdk.Service" Version="1.6.10" />
     <PackageReference Include="MyJetWallet.Service.BitGo.SignTransaction.Client" Version="1.2.9" />
     <PackageReference Include="MyJetWallet.Service.Bitgo.Webhooks.Client" Version="1.0.1" />
-    <PackageReference Include="MyServiceBus.TcpClient" Version="2.4.6" />
+    <PackageReference Include="MyJetWallet.Sdk.ServiceBus" Version="1.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="5.0.1" />
     <PackageReference Include="protobuf-net.Grpc.AspNetCore" Version="1.0.152" />
